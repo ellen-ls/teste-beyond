@@ -1,11 +1,19 @@
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
+import Cadastro from "./Components/Cadastro/Cadastro.tsx";
+import Editar from './Components/Editar/Editar.tsx';
 
 function App() {
  
   return (
 <div>
-  <h1 className='text-4xl font-bold'>hello world</h1>
+  <BrowserRouter>
+  <Routes>
+    <Route path={'/'} element={<Cadastro/>}></Route>
+
+    <Route path="/edit" element={<Editar />}></Route>
+  </Routes>
+  </BrowserRouter>
 </div>
   )
 }
