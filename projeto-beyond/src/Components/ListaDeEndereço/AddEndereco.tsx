@@ -17,7 +17,11 @@ function AddEndereco(props: Props) {
   }
 
   const onLoteChange = (e: { target: { value: SetStateAction<string>; }; }) =>{
-    setLote(e.target.value)
+    const newValue = e.target.value as string
+
+    if (/^\d{0,4}$/.test(newValue)) {
+      setLote(newValue);
+    } 
   }
 
   const onSubmitBtnClick = (e: { preventDefault: () => void; }) => {
@@ -25,10 +29,11 @@ function AddEndereco(props: Props) {
   const data: db = {
     id: new Date().toJSON().toString(),
     addressName: endereco,
-    lotesNumber: lote
+    lotesNumber: lote,
 
   }
   onSubmitClick(data)
+  voltarBotao()
   
   }
 
@@ -45,7 +50,7 @@ function AddEndereco(props: Props) {
           <input type="number" value={lote} onChange={onLoteChange}></input>
         </div>
         <div>
-          <input type="button" value="voltar" onClick={voltarBotao}/>
+          <input type="button" value="voltar" onClick={voltarBotao}  maxLength={4}/>
           <input type="submit" value="add endereço" />
         </div>
       </form>

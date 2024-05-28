@@ -2,11 +2,14 @@ import { db } from "../db.type"
 
 type Props = {
     lista: db[]
+    onDelete: (data: db) => void
+    onEdit: (data: db) => void
 }
 
 const EnderecoLista = (props: Props) => {
 
-    const { lista } = props
+    const { lista, onDelete, onEdit } = props
+
     return (
         <>
             <div className="flex items-center">
@@ -19,7 +22,16 @@ const EnderecoLista = (props: Props) => {
                         <strong>{endereco.addressName}</strong>
                         <span>{endereco.lotesNumber}</span>
                         <div>
-                            <input type="button" value="Edit" />
+                            <input 
+                            type="button" 
+                            value="Edit"
+                            onClick={()=> onEdit(endereco)}
+                             />
+                            <input
+                            type="button" 
+                            value="Deletar" 
+                            onClick={()=>onDelete(endereco)}
+                            />
                         </div>
                     </div>
                     
