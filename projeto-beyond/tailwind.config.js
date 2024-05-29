@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       backgroundImage:{
-        "img-plano":"url('/src/assets/plano-beyond.svg')",
+        "img-plano":"url('/src/assets/wallpaper-espaco.jpg')",
       }
      },
   },

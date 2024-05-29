@@ -1,97 +1,140 @@
 
-import { useEffect, useState } from "react"
-import { db, PaginaEnum } from "../db.type"
-import EnderecoLista from "./EnderecoLista"
-import AddEndereco from "../Cadastro/AddEndereco"
-import Editar from "../Editar/Editar"
 
+import { useEffect, useState } from "react";
+import { db, dbterra, PaginaEnum } from "../db.type";
+import EnderecoLista from "./EnderecoLista";
+import AddEndereco from "../Cadastro/AddEndereco";
+import Editar from "../Editar/Editar";
+import EnderecoListaTerra from "./EnderecoListaTerra";
+import AddEnderecoTerra from "../Cadastro/AddEnderecoTerra";
+import EditarTerra from "../Editar/EditarTerra";
 
-const Cadastro = () => {
+const Lista = () => {
+  const [cadastrarEndereco, setCadastrarEndereco] = useState([] as db[]);
+  const [cadastrarEnderecoTerra, setCadastrarEnderecoTerra] = useState([] as dbterra[]);
+  const [mostrarPagina, setMostrarPagina] = useState(PaginaEnum.lista);
+  const [editarPagina, setEditarPagina] = useState({} as db);
+  const [editarPaginaTerra, setEditarPaginaTerra] = useState({} as dbterra);
 
-  const [cadastrarEndereco, setCadastrarEndereco] = useState([] as db[])
-  const [mostrarPagina, setMostrarPagina] = useState(PaginaEnum.lista)
-  const [editarPagina, setEditarPagina] = useState({} as db)
-
-  useEffect(()=>{
-    const listaEndereco = window.localStorage.getItem('endereço')
-    if(listaEndereco){
-      setCadastrarEndereco(JSON.parse(listaEndereco))
+  useEffect(() => {
+    const listaEndereco = window.localStorage.getItem("endereço");
+    const listaEnderecoTerra = window.localStorage.getItem("endereçoTerra");
+    if (listaEndereco) {
+      setCadastrarEndereco(JSON.parse(listaEndereco));
     }
-  },[])
-  
-  const addCadastro = () => {
-    setMostrarPagina(PaginaEnum.add)
-  }
+    if (listaEnderecoTerra) {
+      setCadastrarEnderecoTerra(JSON.parse(listaEnderecoTerra));
+    }
+  }, []);
 
-  const mostrarListaPagina = () => {
-    setMostrarPagina(PaginaEnum.lista)
-  }
+  const handlePageChange = (page: PaginaEnum) => {
+    setMostrarPagina(page);
+  };
 
-  const _setCadastrarEndereco = (lista:db[]) => {
-    setCadastrarEndereco(lista)
-    window.localStorage.setItem("endereço", JSON.stringify(lista))
-  }
+  const updateLocalStorage = (key: string, data: db[] | dbterra[]) => {
+    window.localStorage.setItem(key, JSON.stringify(data));
+  };
 
   const addCadastroEndereco = (data: db) => {
-    _setCadastrarEndereco([...cadastrarEndereco, data])
+    const updatedList = [...cadastrarEndereco, data];
+    setCadastrarEndereco(updatedList);
+    updateLocalStorage("endereço", updatedList);
+    handlePageChange(PaginaEnum.lista);
+  };
 
-  }
+  const addCadastroEnderecoTerra = (data: dbterra) => {
+    const updatedList = [...cadastrarEnderecoTerra, data];
+    setCadastrarEnderecoTerra(updatedList);
+    updateLocalStorage("endereçoTerra", updatedList);
+    handlePageChange(PaginaEnum.lista);
+  };
 
   const deletarEndereco = (data: db) => {
+    const updatedList = cadastrarEndereco.filter(item => item.id !== data.id);
+    setCadastrarEndereco(updatedList);
+    updateLocalStorage("endereço", updatedList);
+  };
 
-    const indexToDeletar = cadastrarEndereco.indexOf(data)
-    const tempLista = [...cadastrarEndereco]
+  const deletarEnderecoTerra = (data: dbterra) => {
+    const updatedList = cadastrarEnderecoTerra.filter(item => item.id !== data.id);
+    setCadastrarEnderecoTerra(updatedList);
+    updateLocalStorage("endereçoTerra", updatedList);
+  };
 
-    tempLista.splice(indexToDeletar, 1)
-    setCadastrarEndereco(tempLista)
+  const editarEndereco = (data: db) => {
+    setMostrarPagina(PaginaEnum.edit);
+    setEditarPagina(data);
+  };
 
-  }
-
-  const editarEndereco = (data: db) =>{
-    setMostrarPagina(PaginaEnum.edit)
-    setEditarPagina(data)
-  }
+  const editarEnderecoTerra = (data: dbterra) => {
+    setMostrarPagina(PaginaEnum.editTerra);
+    setEditarPaginaTerra(data);
+  };
 
   const editarData = (data: db) => {
-    const filtrarData = cadastrarEndereco.filter(x => x.id === data.id)[0]
-    const indexOfRecord = cadastrarEndereco.indexOf(filtrarData)
-    const tempData = [...cadastrarEndereco]
-    tempData[indexOfRecord] = data
-    _setCadastrarEndereco(tempData)
-  }
+    const updatedList = cadastrarEndereco.map(item => (item.id === data.id ? data : item));
+    setCadastrarEndereco(updatedList);
+    updateLocalStorage("endereço", updatedList);
+    handlePageChange(PaginaEnum.lista);
+  };
 
+  const editarDataTerra = (data: dbterra) => {
+    const updatedList = cadastrarEnderecoTerra.map(item => (item.id === data.id ? data : item));
+    setCadastrarEnderecoTerra(updatedList);
+    updateLocalStorage("endereçoTerra", updatedList);
+    handlePageChange(PaginaEnum.lista);
+  };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
-      <div className="bg-img-plano bg-cover bg-no-repeat" />
-       {mostrarPagina === PaginaEnum.lista && (
+    <div className="sm:flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      {mostrarPagina === PaginaEnum.lista ? (
         <>
-        <div>
-          <button
-          className="w-28 border-solid border-2 border-#52525b rounded-xl"
-            type="button"
-            value="Cadastrar"
-            onClick={addCadastro}
-          >Cadastrar</button>
-          <EnderecoLista
-            lista={cadastrarEndereco}
-            onDelete={deletarEndereco}
-            onEdit={editarEndereco}
-          />
+          <div>
+            <button
+              className="w-28 bg-orange-900 hover:bg-orange-600 text-white text-lg font-bold rounded-xl m-5"
+              type="button"
+              onClick={() => handlePageChange(PaginaEnum.add)}
+            >
+              Cadastrar
+            </button>
+            <div className="sm:flex justify-around">
+              <div className="bg-orange-600 bg-opacity-40 backdrop-blur-sm p-5 rounded-lg">
+                <EnderecoLista lista={cadastrarEndereco} onDelete={deletarEndereco} onEdit={editarEndereco} />
+              </div>
+              <div className="bg-sky-600 bg-opacity-60 backdrop-blur-sm p-5 rounded-lg">
+                <EnderecoListaTerra lista={cadastrarEnderecoTerra} onDelete={deletarEnderecoTerra} onEdit={editarEnderecoTerra} />
+              </div>
+            </div>
           </div>
         </>
-      )}
-
-      {mostrarPagina === PaginaEnum.add && (
-        <AddEndereco
-          voltarBotao={mostrarListaPagina}
-          onSubmitClick={addCadastroEndereco}
-        />
-      )}
-
-      {mostrarPagina === PaginaEnum.edit && <Editar data={editarPagina} voltarBotao={mostrarListaPagina} onUpdateBotao={editarData}/>}
+      ) : null}
+      <div className="sm:flex justify-around">
+        {mostrarPagina === PaginaEnum.add ? (
+          <>
+          
+            <div className="bg-orange-600 bg-opacity-40 backdrop-blur-sm p-5 rounded-lg">
+              <AddEndereco onSubmitClick={addCadastroEndereco} voltarBotao={() => handlePageChange(PaginaEnum.lista)} />
+            </div>
+            <div className="bg-sky-600 bg-opacity-60 backdrop-blur-sm p-5 rounded-lg">
+              <AddEnderecoTerra onSubmitClick={addCadastroEnderecoTerra} voltarBotao={() => handlePageChange(PaginaEnum.lista)} />
+            </div>
+          </>
+        ) : null}
+      </div>
+      <div className="sm:flex justify-around">
+        {mostrarPagina === PaginaEnum.edit ? (
+          <div className="bg-orange-600 bg-opacity-40 backdrop-blur-sm p-5 rounded-lg">
+            <Editar data={editarPagina} onUpdateBotao={editarData} voltarBotao={() => handlePageChange(PaginaEnum.lista)} />
+          </div>
+        ) : null}
+        {mostrarPagina === PaginaEnum.editTerra ? (
+          <div className="bg-sky-600 bg-opacity-60 backdrop-blur-sm p-5 rounded-lg">
+            <EditarTerra data={editarPaginaTerra} onUpdateBotaoTerra={editarDataTerra} voltarBotao={() => handlePageChange(PaginaEnum.lista)} />
+          </div>
+        ) : null}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Cadastro
+export default Lista;

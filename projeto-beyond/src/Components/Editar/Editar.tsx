@@ -36,22 +36,22 @@ voltarBotao()
   return (
     
     <div>
-    <h1 className="text-base font-semibold leading-7 text-gray-900">Editar endereço</h1>
-    <form onSubmit={onSubmitBtnClick}>
-      <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-      <label htmlFor="endereço" className="block text-sm font-medium leading-6 text-gray-900">Endereço</label>
-        <input type="text" value={endereco} onChange={onEnderecoChange} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></input>
-      </div>
-      <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-      <label htmlFor="lote" className="block text-sm font-medium leading-6 text-gray-900">Numero</label>
-        <input type="number" value={lote} onChange={onLoteChange} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></input>
-      </div>
-      <div>
-        <button type="button" value="voltar" onClick={voltarBotao} className="w-28 border-solid border-2 border-#52525b rounded-xl">Voltar</button>
-        <button type="submit" value="editar endereço" className="w-28 border-solid border-2 border-#52525b rounded-xl">Editar</button>
-      </div>
-    </form>
-  </div>
+      <h1 className="text-base font-semibold leading-7 text-gray-900">Editar Endereço Marte</h1>
+      <form onSubmit={onSubmitBtnClick}>
+        <div >
+        <label htmlFor="endereço" className="block text-sm font-medium leading-6 text-gray-900">Endereço</label>
+          <input type="text" value={endereco} onChange={onEnderecoChange} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset"></input>
+        </div>
+        <div >
+        <label htmlFor="lote" className="block text-sm font-medium leading-6 text-gray-900">Numero</label>
+          <input type="number" value={lote} onChange={onLoteChange} className="block w-full rounded-md border-0 py-1.5  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset"></input>
+        </div>
+        <div>
+          
+          <button type="submit" value="editar endereço" className="w-28 m-5 bg-orange-500 hover:bg-orange-600 rounded-xl">Editar</button>
+        </div>
+      </form>
+    </div>
    
   )
 }

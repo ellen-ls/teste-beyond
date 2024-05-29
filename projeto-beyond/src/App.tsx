@@ -1,17 +1,20 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import Cadastro from "./Components/Lista/Lista.tsx";
-import Editar from './Components/Editar/Editar.tsx';
+import Lista from "./Components/Lista/Lista.tsx";
+
+
+
 
 function App() {
  
   return (
-<div className='bg-right-top bg-no-repeat bg-[url(./assets/plano-beyond.svg)] '>
+<div>
   <BrowserRouter>
   <Routes>
-    <Route path={'/'} element={<Cadastro/>}></Route>
+    <Route path={'/'} element={<Lista/>}></Route>
+    
 
-    <Route path="/edit" element={<Editar/>}></Route>
+    
   </Routes>
   </BrowserRouter>
 </div>

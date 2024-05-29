@@ -1,32 +1,32 @@
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid"
-import { db } from "../db.type"
+import { dbterra } from "../db.type"
 
 type Props = {
-    lista: db[]
-    onDelete: (data: db) => void
-    onEdit: (data: db) => void
+    lista: dbterra[]
+    onDelete: (data: dbterra) => void
+    onEdit: (data: dbterra) => void
 }
 
-const EnderecoLista = (props: Props) => {
+const EnderecoListaTerra = (props: Props) => {
 
     const { lista, onDelete, onEdit } = props
 
     return (
         <>
-        <h1 className="text-base font-semibold leading-7 text-gray-900">Endereços Marte</h1>
-        <div className="flex justify-center ">
+        <h1 className="text-base font-semibold leading-7 text-gray-900">Endereços Terra</h1>
+        <div className="flex justify-center">
         
             <div className="">
                 
                 {lista.map((endereco)=>{
                     console.log(endereco)
                     return(
-                        <div className="bg-orange-300 m-5 flex justify-center items-center p-2 rounded-lg ">
-                            <div key={endereco.id} className="m-5 flex justify-center items-center p-2 rounded-lg " >
+                        <div className="">
+                            <div key={endereco.id} className="bg-sky-300 m-5 flex justify-center items-center p-2 rounded-lg " >
                                 <div>
                                 <div className="m-1"><strong>Endereço:</strong> {endereco.addressName}</div>
-                                
-                                <div className="m-1"><strong>Numero:</strong> {endereco.lotesNumber}</div>
+                                <div className="m-1"><strong>Cep:</strong> {endereco.cep}</div>
+                                <div className="m-1"><strong>Numero:</strong> {endereco.numberHome}</div>
                                 </div>
                                 <div className="mt-4">
                                     <button 
@@ -52,4 +52,4 @@ const EnderecoLista = (props: Props) => {
     )
 }
 
-export default EnderecoLista
+export default EnderecoListaTerra
