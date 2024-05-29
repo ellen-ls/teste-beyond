@@ -1,8 +1,8 @@
 
 import { useEffect, useState } from "react"
 import { db, PaginaEnum } from "../db.type"
-import EnderecoLista from "../ListaDeEndereço/EnderecoLista"
-import AddEndereco from "../ListaDeEndereço/AddEndereco"
+import EnderecoLista from "./EnderecoLista"
+import AddEndereco from "../Cadastro/AddEndereco"
 import Editar from "../Editar/Editar"
 
 
@@ -62,20 +62,23 @@ const Cadastro = () => {
 
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-gradient-to-r from-sky-500 to-indigo-500">
-      <h1>Lista de endereços</h1>
-      {mostrarPagina === PaginaEnum.lista && (
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-gradient-to-r from-sky-500 to-indigo-500)]">
+      <div className="bg-img-plano bg-cover bg-no-repeat" />
+       {mostrarPagina === PaginaEnum.lista && (
         <>
-          <input
+        <div>
+          <button
+          className="w-28 border-solid border-2 border-#52525b rounded-xl"
             type="button"
-            value="add endereço"
+            value="Cadastrar"
             onClick={addCadastro}
-          />
+          >Cadastrar</button>
           <EnderecoLista
             lista={cadastrarEndereco}
             onDelete={deletarEndereco}
             onEdit={editarEndereco}
           />
+          </div>
         </>
       )}
 

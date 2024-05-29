@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage:{
+        "img-plano":"url('/src/assets/plano-beyond.svg')",
+      }
      },
   },
   plugins: [],
