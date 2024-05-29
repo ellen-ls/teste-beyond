@@ -62,7 +62,7 @@ const Cadastro = () => {
 
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-gradient-to-r from-sky-500 to-indigo-500)]">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
       <div className="bg-img-plano bg-cover bg-no-repeat" />
        {mostrarPagina === PaginaEnum.lista && (
         <>

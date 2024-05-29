@@ -6,7 +6,7 @@ import Editar from './Components/Editar/Editar.tsx';
 function App() {
  
   return (
-<div className='bg-black'>
+<div className='bg-right-top bg-no-repeat bg-[url(./assets/plano-beyond.svg)] '>
   <BrowserRouter>
   <Routes>
     <Route path={'/'} element={<Cadastro/>}></Route>
